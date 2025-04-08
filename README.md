@@ -1,6 +1,39 @@
-# Advanced Course Selling Platform
+# Improved Course Selling Platform
 
-A modern, full-stack application for creating, selling, and managing online courses, built with the MERN stack (MongoDB, Express, React, Node.js).
+A modern, full-stack MERN application for creating, selling, and managing online courses. This project is an enhanced version of the [original course selling app](https://github.com/chintan712/courseSellingAppMERN) with significant improvements in architecture, features, security, and user experience.
+
+## ✨ Improvements Over Original Project
+
+### Backend Improvements
+- **Enhanced Architecture**: Proper MVC structure with separated routes, controllers, and models
+- **Input Validation**: Added Joi-based validation for all API endpoints
+- **Improved Security**:
+  - Better JWT implementation with refresh tokens
+  - Password hashing with bcrypt
+  - Rate limiting to prevent abuse
+  - Helmet for HTTP security headers
+- **Error Handling**: Comprehensive error handling and logging with Winston
+- **Payment Integration**: Added Stripe for secure payment processing
+- **API Documentation**: Clear API documentation and improved endpoint structure
+- **File Uploads**: Support for course images and materials with Multer
+- **Environment Variables**: Proper .env configuration for sensitive information
+
+### Frontend Improvements
+- **Modern UI**: Completely redesigned UI with Material UI components
+- **State Management**: Added Redux with Redux Toolkit for better state management
+- **Form Handling**: Formik with Yup validation for improved form UX
+- **Charts and Visualizations**: Added analytics dashboard with Chart.js
+- **Responsive Design**: Works seamlessly on mobile, tablet, and desktop
+- **Authentication**: Secure JWT authentication with refresh tokens
+- **Loading States**: Proper loading states and error handling throughout the app
+- **File Upload**: Improved file upload UI with drag-and-drop functionality
+
+### User Experience Improvements
+- **Dashboard**: Added admin dashboard with key metrics
+- **Course Management**: Enhanced course creation and management interface
+- **Student Management**: Better view of enrolled students and their progress
+- **Analytics**: Added charts and reports for sales and course performance
+- **Notifications**: In-app notification system for important events
 
 ## 🚀 Features
 
@@ -20,16 +53,6 @@ A modern, full-stack application for creating, selling, and managing online cour
 - **Analytics Dashboard** - Track course performance and revenue
 - **Secure Authentication** - Role-based access control
 
-### Technical Features
-- **Responsive Design** - Works on mobile, tablet, and desktop
-- **Secure Authentication** - JWT-based auth with refresh tokens
-- **Payment Processing** - Integrated with Stripe for secure payments
-- **File Uploads** - Support for image and video uploads
-- **API Rate Limiting** - Protection against abuse
-- **Error Logging** - Comprehensive error tracking
-- **Form Validation** - Client and server-side validation
-- **Modern UI** - Clean, intuitive interface with Material UI
-
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -43,14 +66,15 @@ A modern, full-stack application for creating, selling, and managing online cour
 - **Multer** - File uploads
 - **Stripe** - Payment processing
 
-### Frontend (Coming Soon)
+### Frontend
 - **React** - UI library
-- **Redux** - State management
+- **Redux Toolkit** - State management
 - **Material UI** - Component library
 - **React Router** - Navigation
 - **Axios** - HTTP client
 - **Formik** - Form handling
 - **Yup** - Form validation
+- **Chart.js** - Data visualization
 
 ## 🚀 Getting Started
 
@@ -63,7 +87,7 @@ A modern, full-stack application for creating, selling, and managing online cour
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/[your-username]/improved-course-selling-app.git
+   git clone https://github.com/Sankalp-Sachapara/improved-course-selling-app.git
    cd improved-course-selling-app
    ```
 
@@ -82,32 +106,39 @@ A modern, full-stack application for creating, selling, and managing online cour
    npm run dev
    ```
 
-3. Frontend Setup (Coming Soon)
+3. Frontend Setup - Admin Panel
    ```bash
-   # Navigate to client directory
-   cd ../client
+   # Navigate to client-admin directory
+   cd ../client-admin
    
    # Install dependencies
    npm install
    
    # Start the client
-   npm start
+   npm run dev
+   ```
+
+4. Frontend Setup - User Portal
+   ```bash
+   # Navigate to client-user directory
+   cd ../client-user
+   
+   # Install dependencies
+   npm install
+   
+   # Start the client
+   npm run dev
    ```
 
 ## 📚 API Documentation
 
 ### Authentication
+- `POST /api/admin/register` - Register a new admin
+- `POST /api/admin/login` - Login as admin
+- `POST /api/admin/refresh-token` - Refresh access token
 - `POST /api/users/register` - Register a new user
 - `POST /api/users/login` - Login a user
 - `POST /api/users/refresh-token` - Refresh access token
-- `POST /api/admin/register` - Register a new admin
-- `POST /api/admin/login` - Login as admin
-
-### Users
-- `GET /api/users/profile` - Get user profile
-- `PUT /api/users/profile` - Update user profile
-- `POST /api/users/change-password` - Change password
-- `GET /api/users/courses` - Get purchased courses
 
 ### Courses
 - `GET /api/courses` - Get all published courses
@@ -115,7 +146,8 @@ A modern, full-stack application for creating, selling, and managing online cour
 - `POST /api/courses` - Create a new course (admin only)
 - `PUT /api/courses/:id` - Update a course (admin only)
 - `DELETE /api/courses/:id` - Delete a course (admin only)
-- `GET /api/courses/admin/all` - Get all courses (admin only)
+- `GET /api/admin/courses` - Get all courses (admin only)
+- `GET /api/users/courses` - Get purchased courses (for users)
 
 ### Payments
 - `POST /api/payments/checkout/:courseId` - Create checkout session
