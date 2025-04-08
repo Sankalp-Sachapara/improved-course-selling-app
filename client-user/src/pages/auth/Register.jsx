@@ -56,29 +56,30 @@ const Register = () => {
       email: '',
       password: '',
       confirmPassword: '',
-      agreeToTerms: false,
+      acceptTerms: false,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required'),
+      name: Yup.string()
+        .required('Name is required')
+        .min(3, 'Name must be at least 3 characters'),
       email: Yup.string()
         .email('Invalid email address')
         .required('Email is required'),
       password: Yup.string()
+        .required('Password is required')
         .min(8, 'Password must be at least 8 characters')
         .matches(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-          'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
-        )
-        .required('Password is required'),
+          'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character'
+        ),
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
-        .required('Please confirm your password'),
-      agreeToTerms: Yup.boolean()
+        .required('Confirm password is required'),
+      acceptTerms: Yup.boolean()
         .oneOf([true], 'You must accept the terms and conditions')
         .required('You must accept the terms and conditions'),
     }),
     onSubmit: (values) => {
-      // Extract the values needed for registration
       const { name, email, password } = values;
       dispatch(register({ name, email, password }));
     },
@@ -90,7 +91,7 @@ const Register = () => {
         Create Account
       </Typography>
       <Typography variant="body1" color="text.secondary" paragraph>
-        Join our learning platform to access thousands of courses.
+        Sign up to access all our features and courses.
       </Typography>
 
       {error && (
@@ -188,10 +189,10 @@ const Register = () => {
         <FormControlLabel
           control={
             <Checkbox
-              name="agreeToTerms"
-              color="primary"
-              checked={formik.values.agreeToTerms}
+              name="acceptTerms"
+              checked={formik.values.acceptTerms}
               onChange={formik.handleChange}
+              color="primary"
             />
           }
           label={
@@ -207,9 +208,9 @@ const Register = () => {
             </Typography>
           }
         />
-        {formik.touched.agreeToTerms && formik.errors.agreeToTerms && (
-          <Typography variant="caption" color="error">
-            {formik.errors.agreeToTerms}
+        {formik.touched.acceptTerms && formik.errors.acceptTerms && (
+          <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+            {formik.errors.acceptTerms}
           </Typography>
         )}
 
